@@ -6,7 +6,7 @@ block content
 
   div(style='margin-left:20px;margin-top:20px;')
 
-    p PLACEHOLDER DESCRIPTION TEXT
+    p #{genre.description}
 
     h4 Books 
 
@@ -18,3 +18,9 @@ block content
 
       else 
         p This genre has no books.
+
+      hr
+    p
+      a(href=genre.url+'/delete') Delete genre
+    p 
+      a(href=genre.url+'/update') Update genre
