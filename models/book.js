@@ -9,12 +9,13 @@ var BookSchema = new Schema({
   isbn: { type: String, required: true },
   genre: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
   pages: { type: Number },
-  read: {
+  availability: {
     type: String,
     required: true,
-    enum: ["Read", "Currently Reading", "Not Read"],
-    default: "Not Read",
+    enum: ["In Stock", "Low Stock", "Out of Stock"],
+    default: "Out of Stock",
   },
+  price: { type: Number, required: true },
 });
 
 // Virtual for book's URL

@@ -50,9 +50,12 @@ exports.genre_detail = function (req, res, next) {
 
 // Display genre create form on GET.
 exports.genre_create_get = function (req, res) {
-  res.render("genre_form", { title: "Create Genre" });
+  if (req.user.membershipStatus == "Member") {
+    res.redirect("/");
+  } else {
+    res.render("genre_form", { title: "Create Genre" });
+  }
 };
-
 // Handle genre create on POST.
 exports.genre_create_post = [
   // Validate and sanitise the name field.
@@ -104,31 +107,35 @@ exports.genre_create_post = [
 
 // Display genre delete form on GET.
 exports.genre_delete_get = function (req, res, next) {
-  async.parallel(
-    {
-      genre: function (callback) {
-        Genre.findById(req.params.id).exec(callback);
+  if (req.user.membershipStatus == "Member") {
+    res.redirect("/");
+  } else {
+    async.parallel(
+      {
+        genre: function (callback) {
+          Genre.findById(req.params.id).exec(callback);
+        },
+        genre_books: function (callback) {
+          Book.find({ genre: req.params.id }).exec(callback);
+        },
       },
-      genre_books: function (callback) {
-        Book.find({ genre: req.params.id }).exec(callback);
-      },
-    },
-    function (err, results) {
-      if (err) {
-        return next(err);
+      function (err, results) {
+        if (err) {
+          return next(err);
+        }
+        if (results.genre == null) {
+          // No results.
+          res.redirect("/catalog/genres");
+        }
+        // Successful, so render.
+        res.render("genre_delete", {
+          title: "Delete Genre",
+          genre: results.genre,
+          genre_books: results.genre_books,
+        });
       }
-      if (results.genre == null) {
-        // No results.
-        res.redirect("/catalog/genres");
-      }
-      // Successful, so render.
-      res.render("genre_delete", {
-        title: "Delete Genre",
-        genre: results.genre,
-        genre_books: results.genre_books,
-      });
-    }
-  );
+    );
+  }
 };
 
 // Handle genre delete on POST.
@@ -171,19 +178,22 @@ exports.genre_delete_post = function (req, res, next) {
 
 // Display genre update form on GET.
 exports.genre_update_get = function (req, res, next) {
-  Genre.findById(req.params.id, function (err, genre) {
-    if (err) {
-      return next(err);
-    }
-    if (genre == null) {
-      var err = new Error("Genre not found");
-      err.status = 404;
-      return next(err);
-    }
-    res.render("genre_form", { title: "Update Genre", genre: genre });
-  });
+  if (req.user.membershipStatus == "Member") {
+    res.redirect("/");
+  } else {
+    Genre.findById(req.params.id, function (err, genre) {
+      if (err) {
+        return next(err);
+      }
+      if (genre == null) {
+        var err = new Error("Genre not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("genre_form", { title: "Update Genre", genre: genre });
+    });
+  }
 };
-
 // Handle genre update on POST.
 exports.genre_update_post = [
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),

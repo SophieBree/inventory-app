@@ -1,0 +1,16 @@
+h1 Sign Up 
+
+form(method='POST' action='')
+  label(for='username') Username: 
+  input(type='text' placeholder='Enter a username' name='username')
+  br
+  br
+  label(for='password') Password: 
+  input(type='password' placeholder='Enter a password' name='password')
+  br
+  br
+  button.btn.btn-primary(type='submit') Sign Up 
+if errors 
+  ul 
+    for error in errors 
+      li!= error.msg

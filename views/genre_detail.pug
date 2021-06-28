@@ -20,7 +20,9 @@ block content
         p This genre has no books.
 
       hr
-    p
-      a(href=genre.url+'/delete') Delete genre
-    p 
-      a(href=genre.url+'/update') Update genre
+    
+    if user && user.membershipStatus === 'Admin'
+      p
+        a(href=genre.url+'/delete') Delete genre
+      p 
+        a(href=genre.url+'/update') Update genre

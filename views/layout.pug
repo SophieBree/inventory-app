@@ -22,14 +22,21 @@ html(lang='en')
                 a(href='/catalog/authors') All authors
               li
                 a(href='/catalog/genres') All genres
-              li
-                hr
-              li
-                a(href='/catalog/author/create') Create new author
-              li
-                a(href='/catalog/genre/create') Create new genre
-              li
-                a(href='/catalog/book/create') Create new book
 
-        div(class='col-sm-10')
+            if user && user.membershipStatus === 'Admin'
+              ul(class='sidebar-nav')
+                hr
+                li
+                  a(href='/catalog/author/create') Create new author
+                li
+                  a(href='/catalog/genre/create') Create new genre
+                li
+                  a(href='/catalog/book/create') Create new book
+
+        div(class='col-sm-9')
           block content
+        div(class="col-sm-1")
+          if user 
+            a(href='/log_out') Log Out
+          else
+            a(href='/login') Log In

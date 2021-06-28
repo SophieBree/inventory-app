@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  h1 Title: #{book.title}
-
+  h1 #{book.title}
+    
   p #[strong Author: ]
     a(href=book.author.url) #{book.author.name}
   p #[strong Summary: ] #{book.summary}
@@ -12,9 +12,12 @@ block content
       a(href=val.url) #{val.name}
       if index < book.genre.length - 1
         |, 
-
+  p #[strong Availability: ] #{book.availability}
+  p #[strong Price: ] #{book.price}
     hr
-    p
-      a(href=book.url+'/delete') Delete Book
-    p
-      a(href=book.url+'/update') Update Book
+    
+    if user && user.membershipStatus === 'Admin'
+      p
+        a(href=book.url+'/delete') Delete Book
+      p
+        a(href=book.url+'/update') Update Book
