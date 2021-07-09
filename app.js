@@ -9,6 +9,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const User = require('./models/user');
+const helmet = require('helmet');
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -71,6 +72,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(helmet());
 
 app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
