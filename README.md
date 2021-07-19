@@ -1,18 +1,13 @@
 # Local Bookshop Inventory
 
-This is an application to display the inventory of a local bookshop.
-
 ## Main Points
 
-'Local Bookshop' is a server-side application made using MongoDB, Express, and Node.
-
-The templating language that I used to build the views is pug.
-
-The app allows users to sign up for an account, and **authenticates** them when they log in.
-
+I made this project as part of the Odin Project to learn about **server-side development**, using **MongoDB, Express, Node.js, and Pug.**
+I decided to take initiative and expand on the original project by adding the ability to create accounts, along with user authentication and authorisation features using **PassportJS.**
 The app uses **authorisation** to only allow Administrator accounts to create, edit, and delete books.
-
 If a regular member tries to access these functions, they will be redirected.
+The users' passwords are hashed using **bcryptjs**, and the project is hosted on Heroku.
+The project can also be thought of as a demonstration of my technical progression since creating the [Front-end Library App](https://github.com/SophieBree/library)
 
 ## Guided Tour
 
