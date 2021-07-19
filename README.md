@@ -42,3 +42,6 @@ Same as the book and author lists, displays a list of all genres, and clicking o
 ### Genre Detail
 Simply displays a list of all books in that genre. The books' titles are links that bring you to the detail page for that book.
 
+## Challenges
+
+This was the first project that I completed that used a backend, so learning how to program with that was an interesting challenge. I slowly understood more and more about how everything worked and connected together as I continued with the project, and by the end, I was comfortable enough to implement new features such as authentication and authorisation.
